@@ -6,7 +6,7 @@ This was an exercise in calculating FFT and than trying to make it graphical wit
 But be forwarned I faced density issues in rendering FFTs. TUI even with braille dots I ended up with a wall of points that made it difficult to make out the signals that were there.
 I had a similar exercise using gplot with better luck potentially using something like that than rending via tui would be a better
 
-![FFT demo](./FFT-demo.png)
+![FFT demo](./psd.webm)
 
 ## FFT details
 I use a hand rolled custom FFT implementation. It should work for all powers of 2. It works on an in place algorithm using a custom sequence generator. I think I could improve several 
@@ -21,11 +21,9 @@ I also would like to benchmark this
 Checkout out https://github.com/lquinn2015/EN605.617/tree/master/final  -- this was my original project in CUDA, I might implement something similar eventually It also has data credit 
 
 ## Controls
-C-c - quits
-
-
-q/w -- scroll on the FFT
-
-a/s -- zoom in an out of the FFT if you go negative your FFT will disappear :) 
-
+* C-c -- quits 
+* q/w -- scroll on the FFT
+* a/s -- zoom in an out of the FFT if you go negative your FFT will disappear :) 
+* z/x -- FFT window size by power of 2
+* space -- play the signal file
 

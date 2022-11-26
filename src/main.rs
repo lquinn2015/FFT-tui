@@ -61,7 +61,7 @@ fn main() -> Result<(), Box<dyn Error>>{
                 }
             }
             Event::Tick => {
-                app::App::on_tick();
+                app::App::on_tick(&mut app);
             }
         }
 

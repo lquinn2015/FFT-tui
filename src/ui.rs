@@ -49,13 +49,18 @@ fn draw_fft<B: Backend>(f: &mut Frame<B>, window: Rect, signal: &mut  Vec<Comple
         .data(&power_sig);
 
 
+    let min_freq = app.panX;
+    let max_freq = app.panX + window.width as f64 / app.density as f64;
+
+    let x_labels = [format!("{}", min_freq), format!("{}", max_freq) ];
+
     let psd = Chart::new(vec![ds])
         .block(Block::default().title("PSD - FFT "))
         .x_axis(Axis::default()
             .title(Span::styled("X - freq", Style::default().fg(Color::White)))
             .style(Style::default().fg(Color::White))
             .bounds([0.0, 130.0])
-            .labels(["0.0", "1/2", "max"].iter().cloned().map(Span::from).collect())
+            .labels(x_labels.iter().cloned().map(Span::from).collect())
         )
         .y_axis(Axis::default()
                 .title(Span::styled("Y PSD", Style::default().fg(Color::White)))

@@ -10,6 +10,8 @@ pub struct App {
     pub should_quit: bool,
     pub density: f64,
     pub panX: f64, 
+    pub play: bool,
+    
 }
 
 impl App {
@@ -22,7 +24,7 @@ impl App {
         for s in buf.iter().step_by(2).copied().zip(buf.iter().step_by(2).copied()) {
             x.push(Complex::new(s.0 as f32 - 127.5, s.1 as f32 - 127.5))
         }
-        App {samples: x, x0: 0, window: 4096, should_quit: false, density: 1.0, panX: 0.0}
+        App {samples: x, x0: 0, window: 4096, should_quit: false, density: 1.0, panX: 0.0, play: false}
     }
 
     pub fn set_x0(&mut self, amt: i32) {
@@ -48,11 +50,28 @@ impl App {
             Key::Char('s') => {
                 self.density = self.density + 0.02;
             }
+            Key::Char('z') => {
+                self.window = u32::max(self.window >> 1, 4);
+            }
+            Key::Char('x') => {
+                self.window = u32::max(self.window << 1, 4);
+            }
+            Key::Char(' ') => {
+                self.play = !self.play;
+            }
             _ => {}
         }
     }
 
-    pub fn on_tick() {
+    pub fn on_tick(&mut self) {
+
+        if self.play {
+            self.x0 = self.x0 + self.window as usize;
+            if self.x0 + self.window as usize > self.samples.len() as usize{
+                self.x0 = 0;
+            }
+        }
+
     }
 }
 
