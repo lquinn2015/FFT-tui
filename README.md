@@ -6,7 +6,7 @@ This was an exercise in calculating FFT and than trying to make it graphical wit
 But be forwarned I faced density issues in rendering FFTs. TUI even with braille dots I ended up with a wall of points that made it difficult to make out the signals that were there.
 I had a similar exercise using gplot with better luck potentially using something like that than rending via tui would be a better
 
-![FFT demo](./psd.webm)
+![FFT demo](./psd.gif)
 
 ## FFT details
 I use a hand rolled custom FFT implementation. It should work for all powers of 2. It works on an in place algorithm using a custom sequence generator. I think I could improve several 
