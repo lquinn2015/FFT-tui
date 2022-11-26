@@ -1,0 +1,11 @@
+[package]
+name = "fft"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+num-complex = "0.4.2"
+termion = "2.0.1"
+tui = {version = "0.19.0", default-features = false, features = ['termion']}
