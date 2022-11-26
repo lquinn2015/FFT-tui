@@ -56,13 +56,9 @@ fn main() -> Result<(), Box<dyn Error>>{
                 Key::Ctrl('c') => {
                     app.should_quit = true;
                 }
-                Key::Char('q') => {
-                    app.density = u32::max(app.density - 1 , 1);
+                _ => { 
+                    App::on_input(&mut app, key);
                 }
-                Key::Char('w') => {
-                    app.density = u32::min(app.density+1, app.window/2);
-                }
-                _ => {}  
             }
             Event::Tick => {
                 app::App::on_tick();

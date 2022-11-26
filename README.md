@@ -22,7 +22,10 @@ Checkout out https://github.com/lquinn2015/EN605.617/tree/master/final  -- this 
 
 ## Controls
 C-c - quits
-q - decrease FFT density by averaging
-w - increase FFT density by averaging
+
+
+q/w -- scroll on the FFT
+
+a/s -- zoom in an out of the FFT if you go negative your FFT will disappear :) 
 
 

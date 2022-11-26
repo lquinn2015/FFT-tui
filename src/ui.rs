@@ -35,23 +35,11 @@ pub fn draw<B: Backend>(f: &mut Frame<B>, app: &mut App) {
 
 fn draw_fft<B: Backend>(f: &mut Frame<B>, window: Rect, signal: &mut  Vec<Complex<f32>>, app: &mut App){
 
-    let ptn2pixel = window.width as f64 / app.window as f64;
 
     fft(signal, false).unwrap();
     let mut C2C: Vec<Complex<f32>> = signal.iter().copied().skip(signal.len()/2).chain(signal.iter().copied().take(signal.len()/2)).collect();
-    let power_sig: Vec<(f64, f64)> = enumerate_PSD(&mut C2C, ptn2pixel);
-    
-    //let power_sig: Vec<(f64,f64)> = power_sig.into_iter().step_by(app.density as usize).collect();
-    let mut power_sig_avg : Vec<(f64, f64)> = Vec::new();
-    for j in seq(0, |x| x + app.density).take_while(|&x| x < app.window-app.density as u32) {
-        let mut avg: f64 = 0.0;
-        for i in 0..app.density {
-            avg += power_sig[(j+i) as usize].1;
-        }
-        power_sig_avg.push((power_sig[j as usize].0  as f64, avg / app.density as f64));
-    }
-    let power_sig = power_sig_avg;
-    //let power_sig = [(0.0, 1.0), (1.0, 0.5), (2.0, 1.0)];
+    let power_sig: Vec<(f64, f64)> = enumerate_PSD(&mut C2C, app.density)
+        .into_iter().map(|x| (x.0 - app.panX, x.1)).collect();
     
     let ds = Dataset::default()
         .name(format!("FFT - PSD, window size {}", power_sig.len()))
@@ -80,7 +68,7 @@ fn draw_fft<B: Backend>(f: &mut Frame<B>, window: Rect, signal: &mut  Vec<Comple
 
 fn enumerate_PSD(sig: &mut Vec<Complex<f32>>, ptn2pixel: f64) -> Vec<(f64, f64)> {
 
-    let sig2: Vec<f32> = sig.iter().copied().map(|x| (x.norm_sqr() as f32)).collect();
+    let sig2: Vec<f32> = sig.iter().copied().map(|x| (f32::sqrt(x.norm_sqr()) as f32)).collect();
     let sig_max = sig2.iter().copied().reduce(f32::max).unwrap();
     let stream: Vec<(f64, f64)> = sig2.into_iter().enumerate()
         .map(|x| ((x.0 as f64 * ptn2pixel), 20.0*(x.1 / sig_max).log10() as f64)).collect();
