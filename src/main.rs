@@ -1,6 +1,7 @@
 mod app;
 mod event;
 mod ui;
+mod dsp;
 
 use app::App;
 use event::{Event, Events};
