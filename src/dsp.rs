@@ -1,8 +1,6 @@
 use num_complex::Complex;
 use std::f32::consts::PI;
 
-
-
 struct Sequence<T,U>
 where U: Fn(T)->T
 {
@@ -22,13 +20,12 @@ fn seq<T: Copy, U: Fn(T)->T>(x: T, f: U) -> Sequence<T,U>{
     Sequence{ x, f}
 }
 
-fn bit_reverse(num: u32, n: u32) -> u32 {
+fn bit_reverse(num: u32, lg_n: u32) -> u32 {
     let mut rev : u32= 0; 
-    for i in seq(1, |x| x<<1).take_while(|&x| x < n)  {
-        if num & i != 0 {
-          rev = rev ^ 1;
+    for i in 0..lg_n {
+        if (num & (1<<i)) != 0 {
+            rev |= 1 << (lg_n -1 - i);
         }
-        rev = rev << 1;
     }
     rev
 }
