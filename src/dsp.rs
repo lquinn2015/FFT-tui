@@ -42,7 +42,7 @@ pub fn fft(sig: &mut Vec<Complex<f32>>, invert: bool) -> Result<(), String>{
     }
     //println!("lg_n: {:?}", lg_n);
     //bit reverse we know the number of bits now reverse them
-    for i in 0..n/2 {
+    for i in 0..n {
         let brev = bit_reverse(i, lg_n);
         if i < brev {
             //println!("Swaping: {:?} and  {:?}", i, brev);
